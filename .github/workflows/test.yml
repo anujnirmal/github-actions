@@ -12,5 +12,10 @@ jobs:
         run: npm install
       - name: Buld the project
         run: npm run build
+      - name: Deploy project
+        env: 
+          VERCEL_ORG_ID: pcsVFUtsDKcAE6PYUVZUcloa
+          VERCEL_PROJECT_ID: prj_rH24v5C4545IcDcMtYsxu83FslQw
+        run: npm run deploy
       - name: Setup Finished
         run: echo "Finished"
