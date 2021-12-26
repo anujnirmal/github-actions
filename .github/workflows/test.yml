@@ -3,6 +3,10 @@ on: [push]
 jobs: 
   build-app:
     runs-on: ubuntu-latest
+    env: 
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
     steps: 
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -12,10 +16,14 @@ jobs:
         run: npm install
       - name: Buld the project
         run: npm run build
+      - name: Set up vercel env
+        run: |
+          cd build
+          mkdir .vercel
+          cd .vercel
+          touch .project.json
+          echo "{\"projectId\": \"$VERCEL_PROJECT_ID\",\"orgId\":\"$VERCEL_ORG_ID\"}" > project.json
       - name: Deploy project
-        env: 
-          VERCEL_ORG_ID: pcsVFUtsDKcAE6PYUVZUcloa
-          VERCEL_PROJECT_ID: prj_rH24v5C4545IcDcMtYsxu83FslQw
         run: npm run deploy
       - name: Setup Finished
         run: echo "Finished"
