@@ -9,6 +9,6 @@ jobs:
         with:
           node-version: '14.17.0'
       - name: Buld the project
-        run: npm run-script build
+        run: npm run build
       - name: Setup Finished
         run: echo "Finished"
